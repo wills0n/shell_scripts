@@ -1,0 +1,16 @@
+#!/bin/bash
+
+THREAD=1
+REQUESTS=20
+
+xargs -I % -P $THREAD  curl --location --request POST 'https://rest.beeline.tv/api_v3/service/household/action/get?udid=VIMPELCOM_ATV495X_00043300_BE2CA&userid=20116366&brandid=110&clientversion=10.6.0' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "ks": "djJ8NDc4fODnx__DBRevnCSAzBMvZS_tMA-flueXP09EVbpsiCj-TTZYaYYJAC1MhuCGUT5qIoPk31rD5CKdfAVQk5C18nJ7NoExk3gtphupGq9PtDVN-rfc_ieZwVrq0dTIMAKSiJzoK6ZPs8DgW-fPPMQQ80tsaBN6WcLVCBMYBe5Njo4WsMOdUvbADRbTC33VW3KHCU1RBTBb3dprmksTzeacTzRihbcz-8oqyhxuEFrgu-HBTmVU5t6hYdsGKZCDxDTGX5RzXmL8508JQtixOeCp5VaFm-LJkr-qehKBuE-PRLr6XgMT1-OozWbZ6nX4vpV1Frg_caV5ctPMebfJirOx5LTIw0MF7BAZ97KpdYu-Oq_xmfO9fDi6x6oi2hNO7rV6oLBMnMrsWjcCx_dSQk4HNw4_AkFPG_8Rntoqfr2RgjLagBuLqdxPKfiKyNx6hEL-dQ==",
+    "apiVersion": "5.4"
+}' < <(printf '%s\n' {1..20}) > /dev/null 2>&1
+
+if [[ $? -eq 1 ]]
+then
+echo "Error"
+fi
